@@ -1,0 +1,257 @@
+<!DOCTYPE HTML>
+<HTML>
+    
+<HEAD>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!-- A biblioteca bundle já contem os arquivos JS do Bootstrap, Popper, e jQuery.
+    <script src="js/bootstrap.bundle.js"></script>-->
+    <title>FTT EC LP3 N2!!</title>
+    <LINK REL="stylesheet" HREF="css/bootstrap.css" />
+    <STYLE>
+        items {
+            margin-top: 20px;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.9);
+        }
+        .center-txt {
+            text-align: center;
+            color: black;
+            width: 90px;
+            padding: 4px;
+            margin:0;
+            border:0;
+        }
+        .button-selected {
+            background-color: #343a40;
+            color: white;
+            border-radius: 15px;
+        }       
+        .width-button-bar {
+            text-align: center;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            margin-right: 0;
+            margin-left: 0;
+            
+        }
+        .bottom-button-bar {
+            margin:0;
+            padding:0;
+            border:0;
+            width: 100%;
+        }
+        .icon-font {
+            font-size: 40px;   
+        }
+        main {
+            padding-top: 56px;
+            padding-bottom: 50px;
+        }
+        .fifa {
+            padding-top: 56px;
+            padding-bottom: 50px;
+        }
+    </STYLE>
+    <SCRIPT>
+
+function createNewsCards(nData) {
+
+for (i in nData.items) {
+    
+    var a = document.createElement("ITEMS"); // Create a <ARTICLE> element
+    a.setAttribute("class", "card");
+
+    var nImg = document.createElement("IMG"); // Create a <H2> element
+    
+    var h2 = document.createElement("H2"); // Create a <H2> element
+    h2.setAttribute("class", "card-header");
+    
+    var clube = document.createElement("B"); // Create a <H2> element
+    clube.setAttribute("class", "card-body");
+
+    var tabela = document.createElement('ul');
+    //tabela.setAttribute("class", "card-body");
+
+    var rating = document.createElement('li');
+    var idade = document.createElement('li');
+    var altura = document.createElement('li');
+    var peso = document.createElement('li');
+    var nacionalidade = document.createElement('li');
+
+    var ath = document.createElement("Liga"); // Create a <AUTHOR> element
+    ath.setAttribute("class", "card-footer");
+
+    nImg.src = nData.items[i].headshot.imgUrl; // Create a text node
+    nImg.style.width = '15%'; //The full width is 400px, 10px of border left and right
+    h2.innerText = nData.items[i].firstName + " " + nData.items[i].lastName; // Create a text node
+    clube.innerText = "Clube: " + nData.items[i].club.abbrName;
+    rating.innerText = "Rating: " + nData.items[i].rating;
+    idade.innerText = "Idade: " + nData.items[i].age + " anos";
+    altura.innerText = "Altura: " + nData.items[i].height + " cm";
+    peso.innerText = "Peso: " + nData.items[i].weight + " kg";
+    nacionalidade.innerText = "País: " + nData.items[i].nation.abbrName;
+
+
+    ath.innerText = "Liga: " + nData.items[i].league.name;
+
+    a.appendChild(nImg);
+    a.appendChild(h2); // Append the text to 
+    a.appendChild(clube);
+    a.appendChild(tabela);
+    tabela.appendChild(rating);
+    tabela.appendChild(idade);
+    tabela.appendChild(altura);
+    tabela.appendChild(peso);
+    tabela.appendChild(nacionalidade);
+    a.appendChild(ath);
+
+
+
+    document.getElementById("fifa").appendChild(a);
+
+} //for
+
+// remove imagens quebradas, deixa o card sem imagem
+document.querySelectorAll('img').forEach(function(img){
+       img.onerror = function(){ this.style.display='none'; };
+});
+
+} //createNewsCards
+
+
+    function reloadPage() {
+
+        newsSearch = document.getElementById("usr").value;
+        //newsSearchText = newsSearch.options[newsSearch.selectedIndex].value;
+        
+            url = 'https://cors-anywhere.herokuapp.com/https://www.easports.com/fifa/ultimate-team/api/fut/item?position=' + newsSearch;
+            document.getElementById("fifa").innerHTML = "";
+            console.log(url);
+        
+        var xhr = new XMLHttpRequest();
+
+
+xhr.onload = function() {
+
+    
+
+    if (xhr.status >= 200 && xhr.status < 300) {
+
+        console.log('success!', JSON.parse(xhr.responseText));
+        var playerData = JSON.parse(xhr.responseText);
+        createNewsCards(playerData);
+
+    } else {
+        
+        let error_message= "Ops! Erro!!!<br>" + xhr.statusText;
+        console.log(error_message);
+        document.getElementById("fifa").innerHTML = error_message;
+    } //if
+
+    console.log('até aqui foi');
+    
+};
+
+xhr.open('GET', url);
+xhr.send();
+
+} //reloadPage
+    
+    
+    </SCRIPT>
+</HEAD>
+
+<BODY onload="reloadPage();" lang="pt-br">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <a class="navbar-brand" href="#"></a>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <div class="navbar-nav float-right text-right pr-3">
+                <a class="nav-item nav-link" href="index.html">Splash</a>
+                <a class="nav-item nav-link" href="http://www.fundacaosalvadorarena.org.br/" target="newpage">CEFSA</a>
+                <a class="nav-item nav-link" href="about.html">Sobre</a>
+            </div>
+        </div>
+    </nav>
+    <BODY onload=lang="pt-br">
+            <!-- Navegador superior -->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <a class="navbar-brand" href="#">Favor escolher a posição </a>
+
+        
+                <form class="form-inline class=" nav-item"">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">&#8634;</span>
+                        </div>
+
+                        <!-- 
+        
+                        <select class="form-group">
+                                <label for="usr">Player:</label>
+                                <input type="text" class="form-control" id="usr">                        
+                        </select>
+                        -->
+
+                        <select class="form-control" onchange="reloadPage();" id="usr">
+                                <option value="ST">Atacante</option>
+                                <option value="RW">Ponta Direita</option>
+                                <option value="LW">Ponta Esquerda</option>
+                                <option value="CM">Meio Central</option>
+                                <option value="CDM">Meio Defensor</option>
+                                <option value="LB">Lateral Esquerdo</option>
+                                <option value="RB">Lateral Direito</option>
+                                <option value="CB">Zagueiro</option>
+                                <option value="GK">Goleiro</option>
+                            </select>
+
+
+
+                    </div>
+                </form>
+
+                <a class="navbar-brand" href="#" >&nbsp &#x26BD;</a>
+
+        
+        
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                    <div class="navbar-nav float-right text-right pr-3">
+                        <a class="nav-item nav-link" href="index.html">Splash</a>
+                        <a class="nav-item nav-link" href="http://www.fundacaosalvadorarena.org.br/" target="newpage">CEFSA</a>
+                        <a class="nav-item nav-link" href="about.html">Sobre</a>
+                    </div>
+                </div>
+            </nav>
+            
+            <!-- Aqui é onde ocorrem os paranauês -->
+            <main class="container" id="fifa">
+                <img src="img/loader.gif"/ alt="loading...">
+            </main>
+
+    <nav class="navbar fixed-bottom navbar-light bg-light width-button-bar">
+        <div class="row w-100 bottom-button-bar">
+            <div class="col-sm center-txt"><b onclick='window.location="tab01news.html"'>News<br><span class="icon-font">&#x1f4f0;</span></b>
+            </div>
+            <div class="col-sm center-txt"><b onclick='window.location="tab02map.html"'>Map<br><span class="icon-font">&#x1f4cc;</span></b>
+            </div>
+            <div class="col-sm center-txt"><b onclick='window.location="tab03todo.html"'>Todo<br><span class="icon-font">&#x1F4DD;</span></b>
+            </div>
+            <div class="col-sm center-txt button-selected"><b onclick='window.location="tab04project.html"'>FIFA Players<br><span class="icon-font">&#x26BD;</span></b>
+            </div>
+        </div>
+    </nav>
+</BODY>
+<!-- carga de scripts do Bootstrap, JQuery, Popper -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+</HTML>
